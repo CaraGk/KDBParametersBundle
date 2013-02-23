@@ -1,0 +1,33 @@
+{
+  "name": "caragk/kdb-parameters-bundle",
+  "type": "symfony-bundle",
+  "description": "This Bundle lets you manage multiple parameters inside your Symfony application.",
+  "keywords": ["parameter manager"],
+  "homepage": "https://github.com/caragk/KDBParametersBundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christophe Willemsen",
+      "email": "willemsen.christophe@gmail.com",
+      "homepage": "https://github.com/kwattro/"
+    },
+    {
+      "name": "Sergey Gerdel",
+      "email": "skif16@ukr.net",
+      "homepage": "https://github.com/Sergic"
+    },
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.0",
+    "symfony/symfony": ">=2.1"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-0": { "KDB\\ParametersBundle": "" }
+  },
+  "target-dir": "KDB/ParametersBundle"
+}
+
+
