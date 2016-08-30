@@ -93,6 +93,10 @@ class ParameterManager extends BaseParameterManager
         return $this->repository->findAll();
     }
 
+    public function findParamsBy(array $criterias = null)
+    {
+        return $this->repository->findBy($criterias);
+    }
     public function findParamByName($name)
     {
         return $this->repository->findOneByName($name);
@@ -106,6 +110,12 @@ class ParameterManager extends BaseParameterManager
     public function findActiveParams()
     {
         return $this->repository->findBy(array('active' => 1));
+    }
+
+    public function findActiveParamsBy(array $criterias = null)
+    {
+        $criterias = array_merge(array('active' => 1), $criterias);
+        return $this->repository->findBy($criterias);
     }
 }
 
