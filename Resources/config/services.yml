@@ -12,11 +12,6 @@ services:
     kparams:
       alias: kdb_parameters
 
-    kdb_parameters.entity_manager:
-      factory_service: doctrine
-      factory_method: getEntityManager
-      class: Doctrine\ORM\EntityManager
-
     kdb_parameters.form:
       factory_service: form.factory
       factory_method: createNamed
