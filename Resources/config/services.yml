@@ -7,7 +7,7 @@ parameters:
 services:
     kdb_parameters:
         class: %kdb_parameters.storage.class%
-        arguments: [@service_container]
+        arguments: ["@service_container"]
 
     kparams:
       alias: kdb_parameters
@@ -21,7 +21,7 @@ services:
       factory_service: form.factory
       factory_method: createNamed
       class: Symfony\Component\Form\Form
-      arguments: [%kdb_parameters.form_name%, @kdb_parameters.form.xtype]
+      arguments: [%kdb_parameters.form_name%, "@kdb_parameters.form.xtype"]
 
     kdb_parameters.form.xtype:
       class: KDB\ParametersBundle\Form\ParameterFormType
@@ -30,27 +30,27 @@ services:
     kdb_parameters.form.handler:
       class: KDB\ParametersBundle\Form\ParameterFormHandler
       scope: request
-      arguments: [@kdb_parameters.form, @request, @kdb_parameters.manager]
+      arguments: ["@kdb_parameters.form", "@request", "@kdb_parameters.manager"]
 
     kdb_parameters.twig.extension:
       class: KDB\ParametersBundle\Twig\Extension\KDBParameterExtension
-      arguments: [@kparams]
+      arguments: ["@kparams"]
       tags:
         - { name: twig.extension }
 
     kdb_parameters.manipulator:
       class: %kdb_parameters.manipulator_class%
-      arguments: [@service_container]
+      arguments: ["@service_container"]
 
     kdb_parameters.session.manipulator:
       class: %kdb_parameters.session_manipulator%
-      arguments: [@session]
+      arguments: ["@session"]
 
     kdb_session:
       alias: kdb_parameters.session.manipulator
 
     kdb_parameters.listener.autoload:
         class: %kdb_parameters.listener.autoload.class%
-        arguments: [@kdb_parameters, %kdb_parameters.auto_load%]
+        arguments: ["@kdb_parameters", %kdb_parameters.auto_load%]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }

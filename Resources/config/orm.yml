@@ -9,4 +9,4 @@ services:
   
   kdb_parameters.manager:
       class: %kdb_parameters.manager_class%
-      arguments: [@kdb_parameters.entity_manager, %kdb_parameters.class%]
+      arguments: ["@kdb_parameters.entity_manager", %kdb_parameters.class%]
