@@ -11,7 +11,7 @@
 namespace KDB\ParametersBundle\Form;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use KDB\ParametersBundle\Model\ParameterManagerInterface;
 use KDB\ParametersBundle\Model\ParameterInterface;
 
@@ -28,14 +28,14 @@ class ParameterFormHandler
     protected $form;
     protected $request;
     protected $parameterManager;
-    
-    public function __construct(Form $form, Request $request, ParameterManagerInterface $manager)
+
+    public function __construct(Form $form, RequestStack $requestStack, ParameterManagerInterface $manager)
     {
         $this->form = $form;
-        $this->request = $request;
+        $this->request = $requestStack->getCurrentRequest();
         $this->parameterManager = $manager;
     }
-    
+
     public function process(ParameterInterface $parameter = null)
     {
         if(null === $parameter)
@@ -44,7 +44,7 @@ class ParameterFormHandler
         }
 
         $this->form->setData($parameter);
-        
+
         if($this->request->isMethod('POST'))
         {
             $this->form->bind($this->request);
@@ -54,10 +54,10 @@ class ParameterFormHandler
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     public function onSuccess(ParameterInterface $param)
     {
         $this->parameterManager->persistParameter($param);

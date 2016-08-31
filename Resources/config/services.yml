@@ -29,8 +29,7 @@ services:
 
     kdb_parameters.form.handler:
       class: KDB\ParametersBundle\Form\ParameterFormHandler
-      scope: request
-      arguments: ["@kdb_parameters.form", "@request", "@kdb_parameters.manager"]
+      arguments: ["@kdb_parameters.form", "@request_stack", "@kdb_parameters.manager"]
 
     kdb_parameters.twig.extension:
       class: KDB\ParametersBundle\Twig\Extension\KDBParameterExtension
