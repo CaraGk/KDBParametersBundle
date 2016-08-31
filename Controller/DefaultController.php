@@ -11,7 +11,8 @@
 
 namespace KDB\ParametersBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface,
+    Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -26,46 +27,47 @@ use KDB\ParametersBundle\Form\ParameterFormType;
  * @author Christophe Willemsen <willemsen.christophe@gmail.com/>
  */
 
-class DefaultController extends ContainerAware
+class DefaultController implements ContainerAwareInterface
 {
-    
+    use ContainerAwareTrait;
+
     /**
      *
      * List all parameters available
      */
     public function indexAction()
-    {        
+    {
         $manager = $this->container->get('kdb_parameters.manager');
 
         return $this->container->get('templating')->renderResponse('KDBParametersBundle:Default:index.html.twig', array('count' => count($manager->findParams())));
     }
-    
+
     /**
      *
      * Displays parameters creation form
      */
     public function newAction()
-    {        
+    {
         $form = $this->container->get('kdb_parameters.form');
         $formHandler = $this->container->get('kdb_parameters.form.handler');
 
         $process = $formHandler->process();
-        
+
         if ($process) {
             $this->setFlash('kdb_param_success', 'param.flash.created');
             $url = $this->container->get('router')->generate('kdb_parameters_index');
-            
+
             return new RedirectResponse($url);
         }
-        
-        
+
+
         return $this->container->get('templating')->renderResponse('KDBParametersBundle:Default:new.html.twig',array(
             'form' => $form->createView(),
             'theme' => $this->container->getParameter('kdb_parameters.form.theme'),
         ));
-        
+
     }
-    
+
     protected function setFlash($action, $value)
     {
         $this->container->get('session')->setFlash($action, $value);
