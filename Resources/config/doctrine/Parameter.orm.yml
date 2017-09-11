@@ -10,7 +10,7 @@ KDB\ParametersBundle\Entity\Parameter:
       
     value:
       type: string
-      length: 50
+      length: 255
     
     active:
       type: boolean
