@@ -3,5 +3,5 @@ parameters:
 
 services:
   kdb_parameters.manager:
-      class: %kdb_parameters.manager_class%
-      arguments: ["@doctrine.orm.entity_manager", %kdb_parameters.class%]
+      class: "%kdb_parameters.manager_class%"
+      arguments: ["@doctrine.orm.entity_manager", "%kdb_parameters.class%"]

@@ -45,7 +45,7 @@ class KDBParameterExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_Function('kparam', array($this, 'kparam')),
+            new \Twig_SimpleFunction('kparam', array($this, 'kparam')),
         );
     }
 
